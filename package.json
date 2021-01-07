@@ -1,18 +1,22 @@
 {
-  "name": "getfit-mobile",
+  "name": "getfit",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "dev": "vue-cli-service build --mode=development",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@capacitor/core": "2.4.5",
+    "@capacitor/ios": "^2.4.5",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
+    "capacitor-apple-login": "git+https://github.com/rlfrahm/capacitor-apple-login.git",
+    "capacitor-healthkit": "^0.1.5",
     "core-js": "^3.6.5",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0"
