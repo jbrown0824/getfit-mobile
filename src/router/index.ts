@@ -1,31 +1,39 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Tabs from '../views/Tabs.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/tabs/tab1'
+    redirect: '/welcome'
   },
   {
-    path: '/tabs/',
-    component: Tabs,
+    path: '/welcome',
+    name: 'login',
+    component: () => import('@/views/welcome/Login.vue')
+  },
+  {
+    path: '/groups/join',
+    component: () => import('@/views/groups/JoinGroup.vue')
+  },
+  {
+    path: '/group/',
+    component: () => import('@/views/group/Layout.vue'),
     children: [
       {
         path: '',
-        redirect: '/tabs/tab1'
+        redirect: '/group/weekly'
       },
       {
-        path: 'tab1',
-        component: () => import('@/views/Tab1.vue')
+        path: 'weekly',
+        component: () => import('@/views/group/Weekly.vue')
       },
       {
-        path: 'tab2',
-        component: () => import('@/views/Tab2.vue')
+        path: 'overall',
+        component: () => import('@/views/group/Overall.vue')
       },
       {
-        path: 'tab3',
-        component: () => import('@/views/Tab3.vue')
+        path: 'info',
+        component: () => import('@/views/group/Info.vue')
       }
     ]
   }

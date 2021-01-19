@@ -1,9 +1,9 @@
 import { mount } from '@vue/test-utils'
-import Tab1 from '@/views/Tab1.vue'
+import Weekly from '@/views/Weekly.vue'
 
-describe('Tab1.vue', () => {
+describe('Weekly.vue', () => {
   it('renders tab 1 view', () => {
-    const wrapper = mount(Tab1)
+    const wrapper = mount(Weekly)
     expect(wrapper.text()).toMatch('Tab 1 page')
   })
 })

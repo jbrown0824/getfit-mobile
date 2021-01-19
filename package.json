@@ -16,14 +16,20 @@
     "@capacitor/ios": "^2.4.5",
     "@ionic/vue": "^5.4.0",
     "@ionic/vue-router": "^5.4.0",
-    "capacitor-healthkit": "^0.1.5",
+    "axios": "^0.21.1",
+    "capacitor-healthkit": "git+https://github.com/jbrown0824/capacitor-healthkit.git",
     "core-js": "^3.6.5",
+    "date-fns": "^2.16.1",
+    "lodash-es": "^4.17.20",
     "vue": "^3.0.0-0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vuex": "^4.0.0-rc.2"
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.5",
     "@types/jest": "^24.0.19",
+    "@types/lodash": "^4.14.167",
+    "@types/lodash-es": "^4.17.4",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
