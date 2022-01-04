@@ -20,6 +20,7 @@ export interface User {
 	apple_id?: string | null;
 	created_at: string;
 	updated_at: string;
+	last_synced_at: string;
 }
 
 export interface Group {

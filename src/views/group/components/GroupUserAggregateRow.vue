@@ -3,6 +3,7 @@
 		{{ user.name }}<br>
 		Successful Weeks: {{ successfulWeeks }}<br>
 		Goals Hit: {{ totalGoalsMet }}, Missed: {{ totalGoalsMissed }}<br>
+		Last Synced: {{ lastSynced }}
 	</div>
 </template>
 
@@ -14,6 +15,7 @@
 
 <script lang="ts">
 
+import moment from 'moment';
 import { defineComponent, PropType } from 'vue';
 import { GroupUserDetails } from '@/types';
 
@@ -51,6 +53,10 @@ export default defineComponent({
 				return aggregate + week.goalsMissed;
 			}, 0);
 		},
+
+		lastSynced(): string {
+			return moment(this.user.last_synced_at).fromNow();
+		}
 	}
 
 });

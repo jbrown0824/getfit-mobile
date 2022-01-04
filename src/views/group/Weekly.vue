@@ -13,13 +13,15 @@
 			</ion-header>
 
 			<div id="container">
-				<section>
-					<header><h4>This Week</h4></header>
-					<p>Goals Met: {{ (thisWeek && thisWeek.hasOwnProperty('goalsMet')) ? thisWeek.goalsMet : 0 }}/{{ group.weekly_goals }}</p>
-				</section>
-				<section v-if="lastWeek && lastWeek.hasOwnProperty('goalsMet')">
-					<header><h4>Last Week</h4></header>
-					<p>Goals Met: {{ lastWeek.goalsMet }}/{{ group.weekly_goals }}</p>
+				<section v-if="isActive">
+					<section>
+						<header><h4>This Week</h4></header>
+						<p>Goals Met: {{ (thisWeek && thisWeek.hasOwnProperty('goalsMet')) ? thisWeek.goalsMet : 0 }}/{{ group.weekly_goals }}</p>
+					</section>
+					<section v-if="lastWeek && lastWeek.hasOwnProperty('goalsMet')">
+						<header><h4>Last Week</h4></header>
+						<p>Goals Met: {{ lastWeek.goalsMet }}/{{ group.weekly_goals }}</p>
+					</section>
 				</section>
 				<section>
 					<header><h4>Overall</h4></header>
@@ -49,6 +51,7 @@ import { Group, User, UserAggregateStat, UserAggregateStats } from '@/types';
 import axios from 'axios';
 import { getSampleDataResponse, queryActivitySummary } from '@/services/get-health-data';
 import { format, sub, startOfWeek, min, parseISO } from 'date-fns';
+import moment from 'moment';
 
 const { Device } = Plugins;
 
@@ -80,9 +83,10 @@ export default defineComponent({
 		hasAccess: boolean;
 		accessGranted: boolean;
 		aggregate: UserAggregateStats;
+		activeGroup?: Group | null;
 		user?: User;
 		loading: boolean | null;
-		[ key: string ]: unknown;
+		[ key: string ]: any;
 	} {
 		return {
 			dataName: '',
@@ -98,6 +102,7 @@ export default defineComponent({
 	computed: {
 
 		group(): Group | object {
+			// @ts-ignore
 			return this.activeGroup ?? {};
 		},
 
@@ -137,14 +142,17 @@ export default defineComponent({
 			});
 
 			return totals;
-		}
+		},
+
+		isActive() {
+			// @ts-ignore
+			return moment().isBetween(moment(this.activeGroup?.start_date), moment(this.activeGroup?.end_date));
+		},
 
 	},
 
 	mounted() {
 		this.getActivity(true);
-
-		console.log('iso?', parseISO(new Date().toISOString()).toISOString());
 	},
 
 	methods: {

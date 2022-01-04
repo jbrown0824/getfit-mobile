@@ -16,15 +16,16 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/groups/JoinGroup.vue')
   },
   {
-    path: '/group/',
+    path: '/group',
     component: () => import('@/views/group/Layout.vue'),
     children: [
       {
         path: '',
-        redirect: '/group/weekly'
+        redirect: 'weekly'
       },
       {
         path: 'weekly',
+        name: 'weekly',
         component: () => import('@/views/group/Weekly.vue')
       },
       {
@@ -34,9 +35,13 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'info',
         component: () => import('@/views/group/Info.vue')
-      }
+      },
     ]
-  }
+  },
+  {
+    path: '/groups/mine',
+    component: () => import('@/views/group/MyGroups.vue')
+  },
 ]
 
 const router = createRouter({

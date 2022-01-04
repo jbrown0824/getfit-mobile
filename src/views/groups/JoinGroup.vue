@@ -15,6 +15,7 @@
 							</div>
 							<div padding>
 								<ion-button size="large" type="submit" expand="block" :disabled="loading" color="light">Join Group</ion-button>
+								<a class="ion-color ion-color-dark" v-if="groups?.length > 0" href="/groups">Cancel</a>
 							</div>
 						</ion-col>
 					</ion-row>
@@ -26,7 +27,7 @@
 
 <script lang="ts">
 
-import { defineComponent } from 'vue';
+import { defineComponent, inject } from 'vue';
 import { IonButton, IonGrid, IonRow, IonCol, IonItem, IonInput, IonContent, IonPage, alertController } from '@ionic/vue';
 
 import axios from 'axios';
@@ -42,7 +43,8 @@ export default defineComponent({
 
 	setup() {
 		const router = useRouter();
-		return { router };
+		const groups: Group[] | undefined = inject<Group[]>('groups');
+		return { router, groups };
 	},
 
 	data(): {
@@ -70,9 +72,14 @@ export default defineComponent({
 
 			try {
 				const { data } = await axios.post('/groups', this.form);
+				await this.setUserGroups?.([
+					data,
+					...(this.groups ?? []),
+				]);
 				this.setActiveGroup?.(data.id);
-				await this.setUserGroups?.([data]);
-				this.router.replace('/group/weekly');
+				this.$nextTick(() => {
+					this.$router.push('/group/weekly');
+				});
 			} catch(e) {
 				this.presentAlert('Unable to join group: ' + getErrorMessage(e));
 			}
